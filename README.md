@@ -1,7 +1,7 @@
 # You are allowed to look inside
 
 I teach and research security, building the small tools I wish existed along the way.
-[Publications](https://scholar.google.com/citations?user=apK2wVsAAAAJ) · 12⭐ across my repos.
+[Publications](https://scholar.google.com/citations?user=apK2wVsAAAAJ) · 13⭐ across my repos.
 
 ### Made because I needed them
 
@@ -12,7 +12,7 @@ I teach and research security, building the small tools I wish existed along the
 ### Made for my university
 
 - 3⭐ **[BeamerThemeEsplanade](https://github.com/hutzelmann/BeamerThemeEsplanade)**: A LaTeX Beamer theme that follows the design manual of Technische Hochschule Ingolstadt
-- **[thi-linux-macos-setup](https://github.com/hutzelmann/thi-linux-macos-setup)**: Unofficial community notes for Linux and macOS at Technische Hochschule Ingolstadt
+- 1⭐ **[thi-linux-macos-setup](https://github.com/hutzelmann/thi-linux-macos-setup)**: Unofficial community notes for Linux and macOS at Technische Hochschule Ingolstadt
 
 ### Made during my master's thesis (2016)
 
