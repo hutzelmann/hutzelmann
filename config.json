@@ -1,0 +1,14 @@
+{
+  "user": "hutzelmann",
+  "exclude": ["hutzelmann", "security.science"],
+  "sections": [
+    { "id": "tools", "topic": null, "style": "bullets" },
+    { "id": "university", "topic": "thi", "style": "bullets" },
+    { "id": "thesis", "topic": "masters-thesis", "style": "inline" }
+  ],
+  "featured": {
+    "tools": ["glassbox-ctf"],
+    "university": [],
+    "thesis": ["macke", "klee", "TargetedSearchStandalone", "opt-delete", "bitcode-kaleidoscope"]
+  }
+}
