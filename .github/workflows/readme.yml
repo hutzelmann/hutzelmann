@@ -28,8 +28,24 @@ jobs:
             --json name,description,stargazerCount,isPrivate,isFork,repositoryTopics \
             > "$RUNNER_TEMP/repos.json"
 
+      - name: Sanity-check the fetched data
+        run: |
+          count=$(jq length "$RUNNER_TEMP/repos.json")
+          echo "fetched $count repos"
+          if [ "$count" -lt 10 ]; then
+            echo "Refusing to render from $count repos; expected at least 10." >&2
+            exit 1
+          fi
+
       - name: Render
         run: python3 scripts/generate.py "$RUNNER_TEMP/repos.json" > README.md
+
+      - name: Reject em-dashes
+        run: |
+          if grep -q '—' README.md; then
+            echo "Rendered page contains an em-dash." >&2
+            exit 1
+          fi
 
       - name: Commit if changed
         run: |

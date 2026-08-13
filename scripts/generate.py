@@ -75,7 +75,9 @@ def render_bullets(repos, user):
     for r in repos:
         count = r["stargazerCount"]
         stars = f"{count}{STAR} " if count else ""
-        lines.append(f"- {stars}**[{r['name']}]({repo_url(user, r)})**: {r['description']}")
+        description = r["description"]
+        suffix = f": {description}" if description else ""
+        lines.append(f"- {stars}**[{r['name']}]({repo_url(user, r)})**{suffix}")
     return "\n".join(lines)
 
 
