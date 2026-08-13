@@ -5,14 +5,14 @@ I teach and research security, building the small tools I wish existed along the
 
 ### Made because I needed them
 
-- 1⭐ **[glassbox-ctf](https://github.com/hutzelmann/glassbox-ctf)**: learn hacking by watching what happens at the victim
-- 6⭐ **[thesis-proposal-skills](https://github.com/hutzelmann/thesis-proposal-skills)**: agent skills that walk a student through a convincing thesis proposal
-- 2⭐ **[compact-latex-article](https://github.com/hutzelmann/compact-latex-article)**: minimal LaTeX document class, IDE and CI ready
+- 1⭐ **[glassbox-ctf](https://github.com/hutzelmann/glassbox-ctf)**: Learn hacking by seeing what’s happening at the victim
+- 6⭐ **[thesis-proposal-skills](https://github.com/hutzelmann/thesis-proposal-skills)**: Write a convincing thesis proposal with support from AI
+- 2⭐ **[compact-latex-article](https://github.com/hutzelmann/compact-latex-article)**: Minimal LaTeX document class for clean, compact articles with IDE and CI/CD integration
 
 ### Made for my university
 
-- 3⭐ **[BeamerThemeEsplanade](https://github.com/hutzelmann/BeamerThemeEsplanade)**: Beamer theme following the TH Ingolstadt design manual
-- **[thi-linux-macos-setup](https://github.com/hutzelmann/thi-linux-macos-setup)**: community Linux and macOS setup notes for TH Ingolstadt
+- 3⭐ **[BeamerThemeEsplanade](https://github.com/hutzelmann/BeamerThemeEsplanade)**: A LaTeX Beamer theme that follows the design manual of Technische Hochschule Ingolstadt
+- **[thi-linux-macos-setup](https://github.com/hutzelmann/thi-linux-macos-setup)**: Unofficial community notes for Linux and macOS at Technische Hochschule Ingolstadt
 
 ### Made during my master's thesis (2016)
 
