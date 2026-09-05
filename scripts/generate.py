@@ -115,15 +115,15 @@ def render_bullets(repos, user):
 
 
 def render_upstream(repos, user):
-    """One bullet per fork, naming and linking the upstream rather than the fork.
+    """One bullet per fork: the upstream's name, linked to the fork.
 
-    No star count: a count in front of someone else's repo name reads as that
-    repo's count. The fork's own stars still reach the intro total.
+    The name credits the project; the link lands on the fork, where the work
+    is. No star count: a count in front of someone else's repo name reads as
+    that repo's count. The fork's own stars still reach the intro total.
     """
     lines = []
     for r in repos:
-        label = upstream_of(r)
-        lines.append(bullet(label, f"https://github.com/{label}", r["description"]))
+        lines.append(bullet(upstream_of(r), repo_url(user, r), r["description"]))
     return "\n".join(lines)
 
 

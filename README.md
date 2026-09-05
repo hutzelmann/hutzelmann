@@ -16,7 +16,7 @@ I teach and research security, building the small tools I wish existed along the
 
 ### Made by others, patched by me
 
-- **[OpenFoxes/Tiny4Linux](https://github.com/OpenFoxes/Tiny4Linux)**: Controller (GUI & CLI) for the OBSBot Tiny2 on Linux
+- **[OpenFoxes/Tiny4Linux](https://github.com/hutzelmann/Tiny4Linux)**: Controller (GUI & CLI) for the OBSBot Tiny2 on Linux
 
 ### Made during my master's thesis (2016)
 
