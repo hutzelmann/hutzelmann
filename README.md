@@ -8,7 +8,6 @@ I teach and research security, building the small tools I wish existed along the
 - 1⭐ **[glassbox-ctf](https://github.com/hutzelmann/glassbox-ctf)**: Learn hacking by seeing what’s happening at the victim
 - 7⭐ **[thesis-proposal-skills](https://github.com/hutzelmann/thesis-proposal-skills)**: Write a convincing thesis proposal with support from AI
 - 2⭐ **[compact-latex-article](https://github.com/hutzelmann/compact-latex-article)**: Minimal LaTeX document class for clean, compact articles with IDE and CI/CD integration
-- **[Tiny4Linux](https://github.com/hutzelmann/Tiny4Linux)**: Controller (GUI & CLI) for the OBSBot Tiny2 on Linux
 
 ### Made for my university
 
