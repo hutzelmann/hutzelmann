@@ -25,7 +25,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh repo list hutzelmann --limit 100 \
-            --json name,description,stargazerCount,isPrivate,isFork,repositoryTopics \
+            --json name,description,stargazerCount,isPrivate,isFork,repositoryTopics,parent \
             > "$RUNNER_TEMP/repos.json"
 
       - name: Sanity-check the fetched data

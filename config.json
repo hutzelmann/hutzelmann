@@ -4,11 +4,13 @@
   "sections": [
     { "id": "tools", "topic": null, "style": "bullets" },
     { "id": "university", "topic": "thi", "style": "bullets" },
+    { "id": "forks", "forks": true, "heading": "Made by others, patched by me", "style": "upstream" },
     { "id": "thesis", "topic": "masters-thesis", "style": "inline" }
   ],
   "featured": {
     "tools": ["glassbox-ctf"],
     "university": [],
+    "forks": [],
     "thesis": ["macke", "klee", "TargetedSearchStandalone", "opt-delete", "bitcode-kaleidoscope"]
   }
 }

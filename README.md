@@ -15,6 +15,10 @@ I teach and research security, building the small tools I wish existed along the
 - 3⭐ **[BeamerThemeEsplanade](https://github.com/hutzelmann/BeamerThemeEsplanade)**: A LaTeX Beamer theme that follows the design manual of Technische Hochschule Ingolstadt
 - 1⭐ **[thi-linux-macos-setup](https://github.com/hutzelmann/thi-linux-macos-setup)**: Unofficial community notes for Linux and macOS at Technische Hochschule Ingolstadt
 
+### Made by others, patched by me
+
+- **[OpenFoxes/Tiny4Linux](https://github.com/OpenFoxes/Tiny4Linux)**: Controller (GUI & CLI) for the OBSBot Tiny2 on Linux
+
 ### Made during my master's thesis (2016)
 
 *Compositional Analysis for Exposing Vulnerabilities.* MACKE splits a C program into

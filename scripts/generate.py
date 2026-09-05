@@ -7,6 +7,7 @@ renderer is testable against a fixture.
 """
 
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -24,27 +25,41 @@ def total_stars(repos):
 
 
 def assign(repos, sections, exclude):
-    """Bucket repos by topic. Exactly one section is the catch-all (topic: null).
+    """Bucket repos: by topic first, then forks, then the catch-all.
 
-    Raises ValueError if a repo matches more than one section, rather than
+    A section names a topic, or is the forks section (`forks: true`), or is the
+    catch-all (neither). Topics win, so a fork that carries a section's topic
+    stays there, and only a fork that matches no topic section reaches the forks
+    section. Without a forks section such forks fall to the catch-all instead.
+
+    Raises ValueError if a repo matches more than one topic section, rather than
     guessing a precedence. An ambiguous repo is a topic mistake worth surfacing.
     """
-    catch_all = [s["id"] for s in sections if s["topic"] is None]
+    catch_all = [s["id"] for s in sections if not s.get("topic") and not s.get("forks")]
+    forks = [s["id"] for s in sections if s.get("forks")]
     if len(catch_all) != 1:
         raise ValueError("config must define exactly one catch-all section")
+    if len(forks) > 1:
+        raise ValueError("config must define at most one forks section")
 
     buckets = {s["id"]: [] for s in sections}
     for repo in repos:
         if repo["isPrivate"] or repo["name"] in exclude:
             continue
         names = topics_of(repo)
-        matched = [s["id"] for s in sections if s["topic"] and s["topic"] in names]
+        matched = [s["id"] for s in sections if s.get("topic") and s["topic"] in names]
         if len(matched) > 1:
             raise ValueError(
                 f"{repo['name']} matches sections {', '.join(matched)}; "
                 "remove one of its topics"
             )
-        buckets[matched[0] if matched else catch_all[0]].append(repo)
+        if matched:
+            target = matched[0]
+        elif forks and repo["isFork"]:
+            target = forks[0]
+        else:
+            target = catch_all[0]
+        buckets[target].append(repo)
     return buckets
 
 
@@ -70,14 +85,45 @@ def repo_url(user, repo):
     return f"https://github.com/{user}/{repo['name']}"
 
 
+def upstream_of(repo):
+    """The `owner/name` a fork was taken from.
+
+    GitHub reports the repo it currently records the fork as taken from, which
+    is not always the repo a pull request was opened against: deleting an
+    upstream promotes its oldest fork. A fork whose upstream is gone entirely
+    has no parent, and the page refuses to guess a label for it.
+    """
+    parent = repo.get("parent")
+    if not parent:
+        raise ValueError(
+            f"{repo['name']} is a fork with no upstream; exclude it or give it a topic"
+        )
+    return f"{parent['owner']['login']}/{parent['name']}"
+
+
+def bullet(label, url, description, count=0):
+    stars = f"{count}{STAR} " if count else ""
+    suffix = f": {description}" if description else ""
+    return f"- {stars}**[{label}]({url})**{suffix}"
+
+
 def render_bullets(repos, user):
+    return "\n".join(
+        bullet(r["name"], repo_url(user, r), r["description"], r["stargazerCount"])
+        for r in repos
+    )
+
+
+def render_upstream(repos, user):
+    """One bullet per fork, naming and linking the upstream rather than the fork.
+
+    No star count: a count in front of someone else's repo name reads as that
+    repo's count. The fork's own stars still reach the intro total.
+    """
     lines = []
     for r in repos:
-        count = r["stargazerCount"]
-        stars = f"{count}{STAR} " if count else ""
-        description = r["description"]
-        suffix = f": {description}" if description else ""
-        lines.append(f"- {stars}**[{r['name']}]({repo_url(user, r)})**{suffix}")
+        label = upstream_of(r)
+        lines.append(bullet(label, f"https://github.com/{label}", r["description"]))
     return "\n".join(lines)
 
 
@@ -85,18 +131,42 @@ def render_inline(repos, user):
     return " ·\n".join(f"[{r['name']}]({repo_url(user, r)})" for r in repos)
 
 
-RENDERERS = {"bullets": render_bullets, "inline": render_inline}
+RENDERERS = {
+    "bullets": render_bullets,
+    "inline": render_inline,
+    "upstream": render_upstream,
+}
 
 
 def render(template, config, repos):
+    """Substitute every section's placeholder.
+
+    A section that carries its own `heading` in the config is one that may be
+    empty: it renders heading and list together, and vanishes with its
+    placeholder line when nothing is in it. Every other heading stays in the
+    template, where the hand-written text belongs, so an empty bucket there
+    is an error rather than a dangling heading.
+    """
     user = config["user"]
     buckets = assign(repos, config["sections"], config["exclude"])
     output = template.replace("{{total_stars}}", str(total_stars(repos)))
     for section in config["sections"]:
         sid = section["id"]
+        placeholder = "{{" + sid + "}}"
+        if placeholder not in template:
+            raise ValueError(f"template has no {placeholder}")
         ordered = sort_bucket(buckets[sid], config["featured"].get(sid, []))
-        block = RENDERERS[section["style"]](ordered, user)
-        output = output.replace("{{" + sid + "}}", block)
+        if ordered:
+            block = RENDERERS[section["style"]](ordered, user)
+            if "heading" in section:
+                block = f"### {section['heading']}\n\n{block}"
+            output = output.replace(placeholder, block)
+        elif "heading" in section:
+            output = re.sub(re.escape(placeholder) + r"\n{0,2}", "", output)
+        else:
+            raise ValueError(
+                f"section {sid} has no repos; its heading in the template would dangle"
+            )
     return output
 
 

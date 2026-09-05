@@ -11,6 +11,8 @@ I teach and research security, building the small tools I wish existed along the
 
 {{university}}
 
+{{forks}}
+
 ### Made during my master's thesis (2016)
 
 *Compositional Analysis for Exposing Vulnerabilities.* MACKE splits a C program into
